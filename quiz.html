@@ -27,38 +27,6 @@
 
 <!-- JavaScript for the test itself -->
 <script>
-    var sxn = 0; // Section number. 0 = starting point, 1=prog, 2=avvy, 3=tradcath
-        
-        
-    var max_gove, max_law, max_focu, max_cult, max_regu, max_grou, max_hier, max_bene, max_iden, max_econ, max_soci; // Max possible scores
-    max_gove = max_law = max_focu = max_cult = max_regu = max_grou = max_hier = max_bene = max_iden = max_econ = max_soci = 0;
-    let gove_array = new Array(questions[sxn].length);
-    let law_array = new Array(questions[sxn].length);
-    let focu_array = new Array(questions[sxn].length);
-    let cult_array = new Array(questions[sxn].length);
-    let regu_array = new Array(questions[sxn].length);
-    let grou_array = new Array(questions[sxn].length);
-    let hier_array = new Array(questions[sxn].length);
-    let bene_array = new Array(questions[sxn].length);
-    let iden_array = new Array(questions[sxn].length);
-    let econ_array = new Array(questions[sxn].length);
-    let soci_array = new Array(questions[sxn].length);
-    var qn = 0; // Question number
-    
-    init_question();
-    for (var i = 0; i < questions[sxn].length; i++) {
-        max_gove += Math.abs(questions[sxn][i].effect.gove)
-        max_law += Math.abs(questions[sxn][i].effect.law)
-        max_focu += Math.abs(questions[sxn][i].effect.focu)
-        max_cult += Math.abs(questions[sxn][i].effect.cult)
-        max_regu += Math.abs(questions[sxn][i].effect.regu)
-        max_grou += Math.abs(questions[sxn][i].effect.grou)
-        max_hier += Math.abs(questions[sxn][i].effect.hier)
-        max_bene += Math.abs(questions[sxn][i].effect.bene)
-        max_iden += Math.abs(questions[sxn][i].effect.iden)
-        max_econ += Math.abs(questions[sxn][i].effect.econ)
-        max_soci += Math.abs(questions[sxn][i].effect.soci)
-    }
     function init_question() {
         document.getElementById("question-text").innerHTML = questions[sxn][qn].question;
         document.getElementById("question-number").innerHTML = "Question " + (qn + 1) + " of " + (questions[sxn].length);
@@ -121,6 +89,40 @@
             + `&d=${calc_score(final_focu,max_focu)}`
             + `&g=${calc_score(final_gove,max_gove)}`
             + `&s=${calc_score(final_soci,max_soci)}`
+    }
+        //TODO: turn results() into an array that can be 'passed' to the next section. Also calculate which one to goto, and when to stop (which should be when results stop changing a lot or gone through >=10 sections)
+        
+    var sxn = 0; // Section number. 0 = starting point, 1=prog, 2=avvy, 3=tradcath
+        
+        
+    var max_gove, max_law, max_focu, max_cult, max_regu, max_grou, max_hier, max_bene, max_iden, max_econ, max_soci; // Max possible scores
+    max_gove = max_law = max_focu = max_cult = max_regu = max_grou = max_hier = max_bene = max_iden = max_econ = max_soci = 0;
+    let gove_array = new Array(questions[sxn].length);
+    let law_array = new Array(questions[sxn].length);
+    let focu_array = new Array(questions[sxn].length);
+    let cult_array = new Array(questions[sxn].length);
+    let regu_array = new Array(questions[sxn].length);
+    let grou_array = new Array(questions[sxn].length);
+    let hier_array = new Array(questions[sxn].length);
+    let bene_array = new Array(questions[sxn].length);
+    let iden_array = new Array(questions[sxn].length);
+    let econ_array = new Array(questions[sxn].length);
+    let soci_array = new Array(questions[sxn].length);
+    var qn = 0; // Question number
+    
+    init_question();
+    for (var i = 0; i < questions[sxn].length; i++) {
+        max_gove += Math.abs(questions[sxn][i].effect.gove)
+        max_law += Math.abs(questions[sxn][i].effect.law)
+        max_focu += Math.abs(questions[sxn][i].effect.focu)
+        max_cult += Math.abs(questions[sxn][i].effect.cult)
+        max_regu += Math.abs(questions[sxn][i].effect.regu)
+        max_grou += Math.abs(questions[sxn][i].effect.grou)
+        max_hier += Math.abs(questions[sxn][i].effect.hier)
+        max_bene += Math.abs(questions[sxn][i].effect.bene)
+        max_iden += Math.abs(questions[sxn][i].effect.iden)
+        max_econ += Math.abs(questions[sxn][i].effect.econ)
+        max_soci += Math.abs(questions[sxn][i].effect.soci)
     }
 </script>
 </body>
