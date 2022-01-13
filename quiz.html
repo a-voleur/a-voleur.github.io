@@ -56,14 +56,33 @@
         if (qn < questions[sxn].length) {
             init_question();
         } else if (sxn<questions.length-1) {
-            sxn = sxn+1;
+            var lowest = 0;
+            var lowestIter = 0;
+            for (let k = 0; k<posToSxn.length; k++) {
+                    if (k=0) {
+                            lowest = arrayDistance(posToSxn[k],results(false));
+                            lowestIter = k;
+                    } else if (arrayDistance(posToSxn[k],results(false))<lowest) {
+                            lowest = arrayDistance(posToSxn[k],results(false));
+                            lowestIter = k;
+                    }
+            }
+            sxn = lowestIter;
             qn = 0;
             init_question();
         } else {
-            results();
+            results(true);
         }
     }
 
+    function arrayDistance(arr1,arr2) {
+            var dist = 0.0;
+            for (let i = 0; i<arr1.length; i++) {
+                    dist += (arr1[i]-arr2[i])**2;
+            }
+            return dist;
+    }
+        
     function prev_question() {
         if (qn == 0) {
             return;
@@ -76,7 +95,7 @@
         return (100*(max+score)/(2*max)).toFixed(1)
     }
 
-    function results() {
+    function results(goTo) {
         let final_gove = gove_array.reduce((a, b) => a + b, 0)
         let final_law = law_array.reduce((a, b) => a + b, 0)
         let final_focu = focu_array.reduce((a, b) => a + b, 0)
@@ -88,11 +107,14 @@
         let final_iden = iden_array.reduce((a, b) => a + b, 0)
         let final_econ = econ_array.reduce((a, b) => a + b, 0)
         let final_soci = soci_array.reduce((a, b) => a + b, 0)
-        location.href = `results.html`
+        if (goTo) {
+                location.href = `results.html`
             + `?e=${calc_score(final_econ,max_econ)}`
             + `&d=${calc_score(final_focu,max_focu)}`
             + `&g=${calc_score(final_gove,max_gove)}`
             + `&s=${calc_score(final_soci,max_soci)}`
+        }
+        return [calc_score(final_gove,max_gove),calc_score(final_law,max_law),calc_score(final_focu,max_focu),calc_score(final_cult,max_cult),calc_score(final_regu,max_regu),calc_score(final_grou,max_grou),calc_score(final_hier,max_hier),calc_score(final_bene,max_bene),calc_score(final_iden,max_iden),calc_score(final_econ,max_econ),calc_score(final_soci,max_soci)]
     }
         //TODO: turn results() into an array that can be 'passed' to the next section. Also calculate which one to goto, and when to stop (which should be when results stop changing a lot or gone through >=10 sections)
         
