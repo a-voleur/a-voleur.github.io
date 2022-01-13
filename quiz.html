@@ -5,66 +5,43 @@
 <link rel="icon" type="x-icon" href="icon.png">
 <link rel="shortcut icon" type="x-icon" href="icon.png">
 <meta charset="utf-8">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-6511426299019766",
-    enable_page_level_ads: true
-  });
-</script>
 </head>
 <body>
 <script type="application/javascript"
         src="questions.js">
 </script>
-<h1>8values</h1>
+<h1>SmartValues</h1>
 <hr>
 <h2 style="text-align:center;" id="question-number">Loading...</h2>
 <p class="question" id="question-text"></p>
-<button class="button stronglyAgree" onclick="next_question( 1.0)">Strongly Agree</button> <br>
-<button class="button agree" onclick="next_question( 0.5)">Agree</button> <br>
-<button class="button neutral" onclick="next_question( 0.0)">Neutral/Unsure</button> <br>
+<button class="button stronglyAgree" onclick="next_question( 1.0)">Agree, and we should go a lot further</button> <br>
+<button class="button agree" onclick="next_question( 0.5)">Agree, and we should go a bit further</button> <br>
+<button class="button neutral" onclick="next_question( 0.0)">Agree, but we shouldn't go any further</button> <br>
 <button class="button disagree" onclick="next_question(-0.5)">Disagree</button> <br>
-<button class="button stronglyDisagree" onclick="next_question(-1.0)">Strongly Disagree</button> <br>
+<button class="button stronglyDisagree" onclick="next_question(-1.0)">Disagree, and we should move in the other direction</button> <br>
 <button class="small_button" onclick="prev_question()" id="back_button">Back</button>
 <button class="small_button_off" id="back_button_off">Back</button><br>
 
-<!-- Website visit statistics - no personal information is collected! -->
-<script type="text/javascript">
-var sc_project=11325211;
-var sc_invisible=1;
-var sc_security="fd9f0659";
-var scJsHost = (("https:" == document.location.protocol) ?
-"https://secure." : "http://www.");
-document.write("<sc"+"ript type='text/javascript' src='" +
-scJsHost+
-"statcounter.com/counter/counter.js'></"+"script>");
-</script>
-<noscript><div class="statcounter"><a title="web stats"
-href="http://statcounter.com/" target="_blank"><img
-class="statcounter"
-src="//c.statcounter.com/11325211/0/fd9f0659/1/" alt="web
-stats"></a></div></noscript>
 
 <!-- JavaScript for the test itself -->
 <script>
     var max_econ, max_dipl, max_govt, max_scty; // Max possible scores
     max_econ = max_dipl = max_govt = max_scty = 0;
-    let econ_array = new Array(questions.length);
-    let dipl_array = new Array(questions.length);
-    let govt_array = new Array(questions.length);
-    let scty_array = new Array(questions.length);
+    let econ_array = new Array(questions[0].length);
+    let dipl_array = new Array(questions[0].length);
+    let govt_array = new Array(questions[0].length);
+    let scty_array = new Array(questions[0].length);
     var qn = 0; // Question number
     init_question();
-    for (var i = 0; i < questions.length; i++) {
-        max_econ += Math.abs(questions[i].effect.econ)
-        max_dipl += Math.abs(questions[i].effect.dipl)
-        max_govt += Math.abs(questions[i].effect.govt)
-        max_scty += Math.abs(questions[i].effect.scty)
+    for (var i = 0; i < questions[0].length; i++) {
+        max_econ += Math.abs(questions[0][i].effect.econ)
+        max_dipl += Math.abs(questions[0][i].effect.dipl)
+        max_govt += Math.abs(questions[0][i].effect.govt)
+        max_scty += Math.abs(questions[0][i].effect.scty)
     }
     function init_question() {
-        document.getElementById("question-text").innerHTML = questions[qn].question;
-        document.getElementById("question-number").innerHTML = "Question " + (qn + 1) + " of " + (questions.length);
+        document.getElementById("question-text").innerHTML = questions[0][qn].question;
+        document.getElementById("question-number").innerHTML = "Question " + (qn + 1) + " of " + (questions[0].length);
         if (qn == 0) {
             document.getElementById("back_button").style.display = 'none';
             document.getElementById("back_button_off").style.display = 'block';
@@ -76,12 +53,12 @@ stats"></a></div></noscript>
     }
 
     function next_question(mult) {
-        econ_array[qn] = mult*questions[qn].effect.econ
-        dipl_array[qn] = mult*questions[qn].effect.dipl
-        govt_array[qn] = mult*questions[qn].effect.govt
-        scty_array[qn] = mult*questions[qn].effect.scty
+        econ_array[qn] = mult*questions[0][qn].effect.econ
+        dipl_array[qn] = mult*questions[0][qn].effect.dipl
+        govt_array[qn] = mult*questions[0][qn].effect.govt
+        scty_array[qn] = mult*questions[0][qn].effect.scty
         qn++;
-        if (qn < questions.length) {
+        if (qn < questions[0].length) {
             init_question();
         } else {
             results();
