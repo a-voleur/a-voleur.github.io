@@ -47,4 +47,52 @@ questions = [[
             "soci": 10
         }
     }
-]];
+],[
+    {
+        "question": "Libertarian socialism is the answer.",
+        "effect": {
+            "gove": -10,
+            "law": 5,
+            "focu": -5,
+            "cult": -8,
+            "regu": 5,
+            "grou": -10,
+            "hier": -10,
+            "bene": -10,
+            "iden": -8,
+            "econ": -10,
+            "soci": -8
+        }
+    }],[
+    {
+        "question": "Avaritionism is the answer.",
+        "effect": {
+            "gove": -15,
+            "law": 15,
+            "focu": 15,
+            "cult": -15,
+            "regu": -15,
+            "grou": 0,
+            "hier": 15,
+            "bene": -8,
+            "iden": 15,
+            "econ": 15,
+            "soci": -5
+        }
+    }],[
+    {
+        "question": "Theocracy is the answer.",
+        "effect": {
+            "gove": 10,
+            "law": -10,
+            "focu": -8,
+            "cult": 10,
+            "regu": 2,
+            "grou": 10,
+            "hier": 12,
+            "bene": 8,
+            "iden": 8,
+            "econ": -1,
+            "soci": 10
+        }
+    }];
