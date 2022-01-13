@@ -142,8 +142,12 @@ div.axis_name {
 .stronglyAgree:hover, .stronglyAgree:focus { background: #154a19; }
 .agree { background: #4caf50; }
 .agree:hover, .agree:focus { background: #29942e; }
+.slightlyAgree { background: #71ab73; }
+.slightlyAgree:hover, .agree:focus { background: #4c784d; }
 .neutral { background: #949494; }
 .neutral:hover, .neutral:focus { background: #656565; }
+.slightlyDisagree { background: #cf726b; }
+.slightlyDisagree:hover, .stronglyDisagree:focus { background: #8a4b46; }
 .disagree { background: #f44336; }
 .disagree:hover, .disagree:focus { background: #d6271a; }
 .stronglyDisagree { background: #b71c1c; }
