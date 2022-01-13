@@ -16,28 +16,44 @@
 <p class="question" id="question-text"></p>
 <button class="button stronglyAgree" onclick="next_question( 1.0)">Agree, and we should go a lot further</button> <br>
 <button class="button agree" onclick="next_question( 0.5)">Agree, and we should go a bit further</button> <br>
-<button class="button neutral" onclick="next_question( 0.0)">Agree, but we shouldn't go any further</button> <br>
-<button class="button disagree" onclick="next_question(-0.5)">Disagree</button> <br>
-<button class="button stronglyDisagree" onclick="next_question(-1.0)">Disagree, and we should move in the other direction</button> <br>
+<button class="button slightlyAgree" onclick="next_question( 0.3)">Agree, but no further than this</button> <br>
+<button class="button neutral" onclick="next_question( 0.0)">Neutral/Not sure/Don't care</button> <br>
+<button class="button slightlyDisagree" onclick="next_question(-0.3)">Disagree</button> <br>
+<button class="button disagree" onclick="next_question(-0.5)">Disagree, and we should go the other direction</button> <br>
+<button class="button stronglyDisagree" onclick="next_question(-1.0)">Disagree, and we should go the other direction a lot</button> <br>
 <button class="small_button" onclick="prev_question()" id="back_button">Back</button>
 <button class="small_button_off" id="back_button_off">Back</button><br>
 
 
 <!-- JavaScript for the test itself -->
 <script>
-    var max_econ, max_dipl, max_govt, max_scty; // Max possible scores
-    max_econ = max_dipl = max_govt = max_scty = 0;
+    var max_gove, max_law, max_focu, max_cult, max_regu, max_grou, max_hier, max_bene, max_iden, max_econ, max_soci; // Max possible scores
+    max_gove = max_law = max_focu = max_cult = max_regu = max_grou = max_hier = max_bene = max_iden = max_econ = max_soci = 0;
+    let gove_array = new Array(questions[0].length);
+    let law_array = new Array(questions[0].length);
+    let focu_array = new Array(questions[0].length);
+    let cult_array = new Array(questions[0].length);
+    let regu_array = new Array(questions[0].length);
+    let grou_array = new Array(questions[0].length);
+    let hier_array = new Array(questions[0].length);
+    let bene_array = new Array(questions[0].length);
+    let iden_array = new Array(questions[0].length);
     let econ_array = new Array(questions[0].length);
-    let dipl_array = new Array(questions[0].length);
-    let govt_array = new Array(questions[0].length);
-    let scty_array = new Array(questions[0].length);
+    let soci_array = new Array(questions[0].length);
     var qn = 0; // Question number
     init_question();
     for (var i = 0; i < questions[0].length; i++) {
+        max_gove += Math.abs(questions[0][i].effect.gove)
+        max_law += Math.abs(questions[0][i].effect.law)
+        max_focu += Math.abs(questions[0][i].effect.focu)
+        max_cult += Math.abs(questions[0][i].effect.cult)
+        max_regu += Math.abs(questions[0][i].effect.regu)
+        max_grou += Math.abs(questions[0][i].effect.grou)
+        max_hier += Math.abs(questions[0][i].effect.hier)
+        max_bene += Math.abs(questions[0][i].effect.bene)
+        max_iden += Math.abs(questions[0][i].effect.iden)
         max_econ += Math.abs(questions[0][i].effect.econ)
-        max_dipl += Math.abs(questions[0][i].effect.dipl)
-        max_govt += Math.abs(questions[0][i].effect.govt)
-        max_scty += Math.abs(questions[0][i].effect.scty)
+        max_soci += Math.abs(questions[0][i].effect.soci)
     }
     function init_question() {
         document.getElementById("question-text").innerHTML = questions[0][qn].question;
@@ -53,10 +69,17 @@
     }
 
     function next_question(mult) {
+        gove_array[qn] = mult*questions[0][qn].effect.gove
+        law_array[qn] = mult*questions[0][qn].effect.law
+        focu_array[qn] = mult*questions[0][qn].effect.focu
+        cult_array[qn] = mult*questions[0][qn].effect.cult
+        regu_array[qn] = mult*questions[0][qn].effect.regu
+        grou_array[qn] = mult*questions[0][qn].effect.grou
+        hier_array[qn] = mult*questions[0][qn].effect.hier
+        bene_array[qn] = mult*questions[0][qn].effect.bene
+        iden_array[qn] = mult*questions[0][qn].effect.iden
         econ_array[qn] = mult*questions[0][qn].effect.econ
-        dipl_array[qn] = mult*questions[0][qn].effect.dipl
-        govt_array[qn] = mult*questions[0][qn].effect.govt
-        scty_array[qn] = mult*questions[0][qn].effect.scty
+        soci_array[qn] = mult*questions[0][qn].effect.soci
         qn++;
         if (qn < questions[0].length) {
             init_question();
@@ -78,15 +101,22 @@
     }
 
     function results() {
+        let final_gove = gove_array.reduce((a, b) => a + b, 0)
+        let final_law = law_array.reduce((a, b) => a + b, 0)
+        let final_focu = focu_array.reduce((a, b) => a + b, 0)
+        let final_cult = cult_array.reduce((a, b) => a + b, 0)
+        let final_regu = regu_array.reduce((a, b) => a + b, 0)
+        let final_grou = grou_array.reduce((a, b) => a + b, 0)
+        let final_hier = hier_array.reduce((a, b) => a + b, 0)
+        let final_bene = bene_array.reduce((a, b) => a + b, 0)
+        let final_iden = iden_array.reduce((a, b) => a + b, 0)
         let final_econ = econ_array.reduce((a, b) => a + b, 0)
-        let final_dipl = dipl_array.reduce((a, b) => a + b, 0)
-        let final_govt = govt_array.reduce((a, b) => a + b, 0)
-        let final_scty = scty_array.reduce((a, b) => a + b, 0)
+        let final_soci = soci_array.reduce((a, b) => a + b, 0)
         location.href = `results.html`
             + `?e=${calc_score(final_econ,max_econ)}`
-            + `&d=${calc_score(final_dipl,max_dipl)}`
-            + `&g=${calc_score(final_govt,max_govt)}`
-            + `&s=${calc_score(final_scty,max_scty)}`
+            + `&d=${calc_score(final_focu,max_focu)}`
+            + `&g=${calc_score(final_gove,max_gove)}`
+            + `&s=${calc_score(final_soci,max_soci)}`
     }
 </script>
 </body>
