@@ -55,6 +55,10 @@
         qn++;
         if (qn < questions[sxn].length) {
             init_question();
+        } else if (sxn<questions.length) {
+            sxn = sxn+1;
+            qn = 0;
+            init_question();
         } else {
             results();
         }
